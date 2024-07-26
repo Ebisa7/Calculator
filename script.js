@@ -1,4 +1,3 @@
-// script.js
 const display = document.getElementById('display');
 
 // ... other functions ...

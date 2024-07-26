@@ -1,33 +1,104 @@
-const display = document.getElementById('display');
+let currentOperation = null;
+let currentValue = '';
+let resultDisplayed = false;
 
-// ... other functions ...
+document.addEventListener('DOMContentLoaded', () => {
+    const darkMode = window.Telegram.WebApp.themeParams.isDark;
+    document.body.classList.toggle('dark-mode', darkMode);
+    document.body.classList.toggle('light-mode', !darkMode);
+    document.getElementById('dark-mode-toggle').checked = darkMode;
+
+    window.Telegram.WebApp.onEvent('themeChanged', (theme) => {
+        document.body.classList.toggle('dark-mode', theme.isDark);
+        document.body.classList.toggle('light-mode', !theme.isDark);
+        document.getElementById('dark-mode-toggle').checked = theme.isDark;
+    });
+
+    window.Telegram.WebApp.onEvent('settingsButtonClicked', () => {
+        document.getElementById('settings-popup').classList.toggle('hidden');
+    });
+
+    document.getElementById('dark-mode-toggle').addEventListener('change', (e) => {
+        document.body.classList.toggle('dark-mode', e.target.checked);
+        document.body.classList.toggle('light-mode', !e.target.checked);
+        window.Telegram.WebApp.themeParams.isDark = e.target.checked;
+    });
+});
 
 function updateDisplay(value) {
+    const display = document.getElementById('display');
     display.textContent = value;
 }
 
-// Assuming you have a function to get Telegram's theme
-function getTelegramTheme() {
-  // Logic to get Telegram's theme (light or dark)
-  return telegramTheme; // Return 'light' or 'dark'
+function clearDisplay() {
+    currentValue = '';
+    currentOperation = null;
+    resultDisplayed = false;
+    updateDisplay('0');
 }
 
-// Function to set CSS variables based on theme
-function setThemeColors() {
-  const theme = getTelegramTheme();
-  const root = document.documentElement;
-  if (theme === 'light') {
-    root.style.setProperty('--telegram-background', '#ffffff');
-    root.style.setProperty('--telegram-text', '#000000');
-  } else {
-    root.style.setProperty('--telegram-background', '#000000');
-    root.style.setProperty('--telegram-text', '#ffffff');
-  }
+function clearAll() {
+    currentValue = '';
+    currentOperation = null;
+    resultDisplayed = false;
+    updateDisplay('0');
 }
 
-// Initial call to set theme colors
-setThemeColors();
+function appendNumber(number) {
+    if (resultDisplayed) {
+        currentValue = number;
+        resultDisplayed = false;
+    } else {
+        currentValue += number;
+    }
+    updateDisplay(currentValue || '0');
+}
 
-// Listen for theme changes (if applicable)
-// ...
+function appendDecimal() {
+    if (!currentValue.includes('.')) {
+        currentValue += '.';
+        updateDisplay(currentValue);
+    }
+}
+
+function appendSymbol(symbol) {
+    if (resultDisplayed) {
+        currentValue = symbol;
+        resultDisplayed = false;
+    } else {
+        currentValue += symbol;
+    }
+    updateDisplay(currentValue || '0');
+}
+
+function setOperation(operation) {
+    if (currentOperation && !resultDisplayed) {
+        calculate();
+    }
+    currentOperation = operation;
+    resultDisplayed = false;
+    currentValue += ` ${operation} `;
+    updateDisplay(currentValue);
+}
+
+function calculate() {
+    try {
+        const result = eval(currentValue.replace('×', '*').replace('÷', '/'));
+        updateDisplay(result);
+        currentValue = result.toString();
+        resultDisplayed = true;
+    } catch {
+        updateDisplay('Error');
+        currentValue = '';
+    }
+}
+
+function deleteLast() {
+    if (resultDisplayed) {
+        clearDisplay();
+    } else {
+        currentValue = currentValue.slice(0, -1);
+        updateDisplay(currentValue || '0');
+    }
+            }
         

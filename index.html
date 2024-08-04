@@ -3,50 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculator</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Advanced Calculator</title>
+    <link rel="stylesheet" href="calculator.css">
 </head>
 <body>
     <div class="calculator">
+        <div id="header">
+            <h1>Advanced Calculator</h1>
+        </div>
         <div id="display">0</div>
         <div class="buttons">
-            <button class="function" onclick="clearDisplay()">C</button>
-            <button class="function" onclick="clearAll()">CA</button>
-            <button class="function" onclick="appendSymbol('π')">π</button>
-            <button class="function" onclick="deleteLast()">&larr;</button>
+            <button class="btn" data-value="7">7</button>
+            <button class="btn" data-value="8">8</button>
+            <button class="btn" data-value="9">9</button>
+            <button class="btn operator" data-value="/">/</button>
 
-            <button onclick="appendNumber('1')">1</button>
-            <button onclick="appendNumber('2')">2</button>
-            <button onclick="appendNumber('3')">3</button>
-            <button class="operation" onclick="setOperation('+')">+</button>
+            <button class="btn" data-value="4">4</button>
+            <button class="btn" data-value="5">5</button>
+            <button class="btn" data-value="6">6</button>
+            <button class="btn operator" data-value="*">*</button>
 
-            <button onclick="appendNumber('4')">4</button>
-            <button onclick="appendNumber('5')">5</button>
-            <button onclick="appendNumber('6')">6</button>
-            <button class="operation" onclick="setOperation('-')">-</button>
+            <button class="btn" data-value="1">1</button>
+            <button class="btn" data-value="2">2</button>
+            <button class="btn" data-value="3">3</button>
+            <button class="btn operator" data-value="-">-</button>
 
-            <button onclick="appendNumber('7')">7</button>
-            <button onclick="appendNumber('8')">8</button>
-            <button onclick="appendNumber('9')">9</button>
-            <button class="operation" onclick="setOperation('*')">×</button>
+            <button class="btn" data-value="0">0</button>
+            <button class="btn" data-value=".">.</button>
+            <button class="btn equal" data-value="=">=</button>
+            <button class="btn operator" data-value="+">+</button>
 
-            <button onclick="appendNumber('0')">0</button>
-            <button class="function" onclick="appendSymbol('%')">%</button>
-            <button class="function" onclick="appendDecimal()">.</button>
-            <button class="operation" onclick="setOperation('/')">÷</button>
-            
-            <button class="operation equals" onclick="calculate()">=</button>
+            <button class="btn clear" data-value="C">C</button>
         </div>
     </div>
-    <div class="settings-popup hidden" id="settings-popup">
-        <div class="settings-title">Settings</div>
-        <div class="settings-item">
-            <label for="dark-mode-toggle">Dark Mode</label>
-            <input type="checkbox" id="dark-mode-toggle" />
-        </div>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/@telegram/web-app@1.0.0/dist/telegram-web-app.js"></script>
-    <script src="script.js"></script>
+    <script src="calculator.js"></script>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script>
+        Telegram.WebApp.ready();
+    </script>
 </body>
-    </html>
-    
+                               </html>
+                

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Car Level Up Game</title>
     <style>
+        /* Basic Reset */
         * {
             margin: 0;
             padding: 0;
@@ -18,7 +19,6 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            overflow: hidden;
         }
 
         .main-container {
@@ -27,11 +27,11 @@
             height: 100%;
             display: flex;
             flex-direction: column;
-            align-items: center;
             justify-content: space-between;
+            align-items: center;
         }
 
-        /* Coin Balance Container (Top Left) */
+        /* Coin Balance Display */
         .coin-balance {
             position: absolute;
             top: 20px;
@@ -41,14 +41,17 @@
             background-color: rgba(255, 255, 255, 0.1);
             padding: 10px 20px;
             border-radius: 30px;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.7); /* Glowing effect */
         }
 
+        /* Coin Icon */
         #coin-icon {
             width: 40px;
             height: 40px;
             margin-right: 10px;
         }
 
+        /* Coin Count */
         #coin-count {
             font-size: 24px;
             color: white;
@@ -58,28 +61,36 @@
         #car-image {
             width: 300px;
             height: auto;
-            animation: glow 2s infinite alternate;
+            animation: glow 2s infinite;
         }
 
         @keyframes glow {
-            from {
-                box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+            0% {
+                box-shadow: 0 0 20px rgba(255, 215, 0, 0.5), 0 0 30px rgba(255, 215, 0, 0.7);
             }
-            to {
-                box-shadow: 0 0 40px rgba(255, 215, 0, 1);
+            50% {
+                box-shadow: 0 0 40px rgba(255, 215, 0, 1), 0 0 60px rgba(255, 215, 0, 0.9);
+            }
+            100% {
+                box-shadow: 0 0 20px rgba(255, 215, 0, 0.5), 0 0 30px rgba(255, 215, 0, 0.7);
             }
         }
 
-        /* Upgrade Car Button */
-        #upgrade-btn {
-            background-color: #ffcc00;
+        /* Upgrade Button */
+        .upgrade-btn {
+            background-color: #ff9900;
             border: none;
             padding: 15px 30px;
-            border-radius: 10px;
+            color: white;
             font-size: 18px;
-            font-weight: bold;
+            border-radius: 10px;
             cursor: pointer;
-            margin-top: 20px;
+            box-shadow: 0 0 15px rgba(255, 153, 0, 0.7);
+            transition: background-color 0.3s ease;
+        }
+
+        .upgrade-btn:hover {
+            background-color: #e68a00;
         }
 
         /* Navigation Buttons (Bottom) */
@@ -94,38 +105,40 @@
             background-color: #333;
             color: white;
             border: none;
-            padding: 15px;
-            border-radius: 10px;
+            padding: 15px 20px;
             font-size: 16px;
+            border-radius: 8px;
             cursor: pointer;
-            width: 20%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            transition: background-color 0.3s ease;
         }
 
+        .nav-buttons button:hover {
+            background-color: #555;
+        }
     </style>
 </head>
 <body>
     <div class="main-container">
-
-        <!-- Coin Balance Display (Top Left) -->
+        <!-- Coin Balance Section -->
         <div class="coin-balance">
-            <img id="coin-icon" src="coin.png" alt="Coins">
-            <span id="coin-count">0</span>
+            <img id="coin-icon" src="coin.png" alt="Coin Icon">
+            <span id="coin-count">150</span> <!-- Example balance -->
         </div>
 
-        <!-- Car Image (Glowing) -->
-        <img id="car-image" src="car.png" alt="Car">
+        <!-- Car Image -->
+        <img id="car-image" src="car.png" alt="Car Image">
 
         <!-- Upgrade Car Button -->
-        <button id="upgrade-btn">Upgrade Car</button>
+        <button class="upgrade-btn">Upgrade Car</button>
 
         <!-- Navigation Buttons (Bottom) -->
         <div class="nav-buttons">
+            <button>Level Up</button>
             <button>Invite Friends</button>
-            <button>Complete Tasks</button>
+            <button>Tasks</button>
             <button>Mini-Games</button>
-            <button>Settings</button>
         </div>
-        
     </div>
 </body>
 </html>

@@ -3,44 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Calculator</title>
-    <link rel="stylesheet" href="calculator.css">
+    <title>Car Level Up Game</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .main-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Car Image */
+        #car-image {
+            width: 300px; /* Adjust size */
+            height: auto;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        /* Coin Balance Container */
+        .coin-balance {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 10px 20px;
+            border-radius: 30px;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.7); /* Glowing effect */
+        }
+
+        /* Coin Image */
+        #coin-icon {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        /* Coin Text */
+        #coin-count {
+            font-size: 24px;
+            color: white;
+        }
+    </style>
 </head>
 <body>
-    <div class="calculator">
-        <div id="header">
-            <h1>Advanced Calculator</h1>
+    <div class="main-container">
+        <!-- Coin Balance Display -->
+        <div class="coin-balance">
+            <img id="coin-icon" src="coin.png" alt="Coins"> <!-- Circle coin icon -->
+            <span id="coin-count">0</span> <!-- Coin balance -->
         </div>
-        <div id="display">0</div>
-        <div class="buttons">
-            <button class="btn" data-value="7">7</button>
-            <button class="btn" data-value="8">8</button>
-            <button class="btn" data-value="9">9</button>
-            <button class="btn operator" data-value="/">/</button>
 
-            <button class="btn" data-value="4">4</button>
-            <button class="btn" data-value="5">5</button>
-            <button class="btn" data-value="6">6</button>
-            <button class="btn operator" data-value="*">*</button>
-
-            <button class="btn" data-value="1">1</button>
-            <button class="btn" data-value="2">2</button>
-            <button class="btn" data-value="3">3</button>
-            <button class="btn operator" data-value="-">-</button>
-
-            <button class="btn" data-value="0">0</button>
-            <button class="btn" data-value=".">.</button>
-            <button class="btn equal" data-value="=">=</button>
-            <button class="btn operator" data-value="+">+</button>
-
-            <button class="btn clear" data-value="C">C</button>
-        </div>
+        <!-- Car Image -->
+        <img id="car-image" src="car.png" alt="Car"> <!-- The car image in the center -->
     </div>
-    <script src="calculator.js"></script>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <script>
-        Telegram.WebApp.ready();
-    </script>
 </body>
-                               </html>
-                
+</html>

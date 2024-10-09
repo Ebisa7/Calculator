@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Car Level Up Game</title>
     <style>
-        /* Basic Reset */
         * {
             margin: 0;
             padding: 0;
@@ -14,11 +13,12 @@
 
         body {
             font-family: Arial, sans-serif;
-            background-color: #1a1a1a;
+            background-color: #141414;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            overflow: hidden;
         }
 
         .main-container {
@@ -27,11 +27,11 @@
             height: 100%;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
         }
 
-        /* Coin Balance Display */
+        /* Coin Balance Container (Top Left) */
         .coin-balance {
             position: absolute;
             top: 20px;
@@ -41,59 +41,48 @@
             background-color: rgba(255, 255, 255, 0.1);
             padding: 10px 20px;
             border-radius: 30px;
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.7); /* Glowing effect */
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.8); /* Glow effect on coin balance */
         }
 
-        /* Coin Icon */
         #coin-icon {
             width: 40px;
             height: 40px;
             margin-right: 10px;
         }
 
-        /* Coin Count */
         #coin-count {
             font-size: 24px;
             color: white;
         }
 
-        /* Car Image with Glowing Effect */
+        /* Car Image with Static Glow */
         #car-image {
             width: 300px;
             height: auto;
-            animation: glow 2s infinite;
+            margin-bottom: 20px;
+            background-color: rgba(255, 215, 0, 0.3); /* Static glow background */
+            padding: 20px;
+            border-radius: 50%;
         }
 
-        @keyframes glow {
-            0% {
-                box-shadow: 0 0 20px rgba(255, 215, 0, 0.5), 0 0 30px rgba(255, 215, 0, 0.7);
-            }
-            50% {
-                box-shadow: 0 0 40px rgba(255, 215, 0, 1), 0 0 60px rgba(255, 215, 0, 0.9);
-            }
-            100% {
-                box-shadow: 0 0 20px rgba(255, 215, 0, 0.5), 0 0 30px rgba(255, 215, 0, 0.7);
-            }
-        }
-
-        /* Upgrade Button */
-        .upgrade-btn {
-            background-color: #ff9900;
+        /* Level Up Car Button (Below Car) */
+        #upgrade-btn {
+            background-color: #ffcc00;
             border: none;
             padding: 15px 30px;
-            color: white;
-            font-size: 18px;
             border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
             cursor: pointer;
-            box-shadow: 0 0 15px rgba(255, 153, 0, 0.7);
-            transition: background-color 0.3s ease;
+            margin-top: 10px;
+            transition: background-color 0.3s;
         }
 
-        .upgrade-btn:hover {
-            background-color: #e68a00;
+        #upgrade-btn:hover {
+            background-color: #ffc700;
         }
 
-        /* Navigation Buttons (Bottom) */
+        /* Navigation Buttons (Bottom with Custom Icons) */
         .nav-buttons {
             display: flex;
             justify-content: space-around;
@@ -105,40 +94,71 @@
             background-color: #333;
             color: white;
             border: none;
-            padding: 15px 20px;
+            padding: 15px;
+            border-radius: 10px;
             font-size: 16px;
-            border-radius: 8px;
             cursor: pointer;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            transition: background-color 0.3s ease;
+            width: 20%;
+            transition: background-color 0.3s;
+        }
+
+        .nav-buttons button img {
+            width: 40px;
+            height: 40px;
         }
 
         .nav-buttons button:hover {
             background-color: #555;
         }
+
+        /* Telegram Header Styling */
+        #telegram-header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            background-color: white; /* White background for Telegram header */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: black;
+            z-index: 1000;
+        }
+
     </style>
 </head>
 <body>
+    <!-- Telegram Header -->
+    <div id="telegram-header">
+        Car Level Up Game
+    </div>
+
     <div class="main-container">
-        <!-- Coin Balance Section -->
+
+        <!-- Coin Balance Display (Top Left) -->
         <div class="coin-balance">
-            <img id="coin-icon" src="coin.png" alt="Coin Icon">
-            <span id="coin-count">150</span> <!-- Example balance -->
+            <img id="coin-icon" src="coin.png" alt="Coins"> <!-- Coin Icon -->
+            <span id="coin-count">1000</span> <!-- Example balance -->
         </div>
 
-        <!-- Car Image -->
-        <img id="car-image" src="car.png" alt="Car Image">
+        <!-- Car Image (Static Glow) -->
+        <img id="car-image" src="car.png" alt="Car"> <!-- The car image in the center -->
 
         <!-- Upgrade Car Button -->
-        <button class="upgrade-btn">Upgrade Car</button>
+        <button id="upgrade-btn">Level Up Car</button>
 
-        <!-- Navigation Buttons (Bottom) -->
+        <!-- Navigation Buttons (Bottom with Car-Themed Icons) -->
         <div class="nav-buttons">
-            <button>Level Up</button>
-            <button>Invite Friends</button>
-            <button>Tasks</button>
-            <button>Mini-Games</button>
+            <button id="home-btn"><img src="home.png" alt="Home"></button>
+            <button id="invite-btn"><img src="invite.png" alt="Invite"></button>
+            <button id="shop-btn"><img src="shop.png" alt="Shop"></button>
+            <button id="tasks-btn"><img src="tasks.png" alt="Tasks"></button>
+            <button id="games-btn"><img src="games.png" alt="Games"></button>
         </div>
+
     </div>
 </body>
 </html>

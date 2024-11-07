@@ -1,102 +1,206 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Send Text to Firebase</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background-color: #f4f4f4;
-    }
-    .container {
-      text-align: center;
-      padding: 20px;
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-    input[type="text"] {
-      width: 80%;
-      padding: 10px;
-      margin: 10px 0;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-    button {
-      padding: 10px 20px;
-      border: none;
-      background-color: #007bff;
-      color: white;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #0056b3;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram User Info</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            color: #333;
+        }
+        .user-info {
+            margin: 20px;
+            padding: 10px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+        .profile-photo {
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            margin: 20px auto;
+            display: block;
+        }
+        .info-item {
+            margin: 10px 0;
+        }
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .info-label {
+            text-align: left;
+        }
+        .info-value {
+            text-align: right;
+        }
+        .icon {
+            width: 20px;
+            height: 20px;
+            margin-left: 10px;
+        }
+        .cylinder {
+            display: flex;
+            align-items: center;
+            margin-top: 5px;
+        }
+        .cylinder-bar {
+            width: 100%;
+            height: 20px;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            margin-right: 10px;
+        }
+        .fill {
+            position: absolute;
+            left: 0;
+            height: 100%;
+            background-color: #0088cc; 
+            transition: width 0.5s ease;
+        }
+        .close-button,
+        .send-button {
+            background-color: #0088cc;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-top: 20px;
+            margin-left: 10px;
+        }
+        .close-button:hover,
+        .send-button:hover {
+            opacity: 0.8;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Send Text to Firebase</h1>
-    <input type="text" id="textInput" placeholder="Enter your text here" />
-    <button id="sendButton">Send</button>
-    <p id="status"></p>
-  </div>
-  <script type="module">
-    // Import the necessary Firebase modules
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-    import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+    <div class="user-info">
+        <img id="profile-pic" class="profile-photo" alt="Profile Pic" src="default-profile-photo.png"/>
 
-    // Firebase configuration
-    const firebaseConfig = {
-      apiKey: "AIzaSyA_S5XfXJ7iyLIrPBOPkvP0110vXjzhqEg",
-      authDomain: "etndrop-bc9c3.firebaseapp.com",
-      projectId: "etndrop-bc9c3",
-      storageBucket: "etndrop-bc9c3.firebasestorage.app",
-      messagingSenderId: "1017600425514",
-      appId: "1:1017600425514:web:f65bb6ee44f86da2014d53",
-    };
+        <div class="info-item">
+            <div class="info-row">
+                <span class="info-label">Full Name:</span>
+                <span id="full-name" class="info-value">N/A</span>
+            </div>
+            <div class="cylinder">
+                <div class="cylinder-bar">
+                    <div class="fill" id="full-name-fill" style="width: 0%;"></div>
+                </div>
+                <img id="full-name-icon" class="icon" src="fail.png" alt="Loading" />
+            </div>
+        </div>
 
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
+        <div class="info-item">
+            <div class="info-row">
+                <span class="info-label">Username:</span>
+                <span id="username" class="info-value">N/A</span>
+            </div>
+            <div class="cylinder">
+                <div class="cylinder-bar">
+                    <div class="fill" id="username-fill" style="width: 0%;"></div>
+                </div>
+                <img id="username-icon" class="icon" src="fail.png" alt="Loading" />
+            </div>
+        </div>
 
-    // DOM Elements
-    const textInput = document.getElementById("textInput");
-    const sendButton = document.getElementById("sendButton");
-    const status = document.getElementById("status");
+        <div class="info-item">
+            <div class="info-row">
+                <span class="info-label">User ID:</span>
+                <span id="user-id" class="info-value">N/A</span>
+            </div>
+            <div class="cylinder">
+                <div class="cylinder-bar">
+                    <div class="fill" id="user-id-fill" style="width: 0%;"></div>
+                </div>
+                <img id="user-id-icon" class="icon" src="fail.png" alt="Loading" />
+            </div>
+        </div>
 
-    // Function to send text to Firestore
-    const sendTextToFirestore = async () => {
-      const text = textInput.value.trim();
-      if (text) {
-        try {
-          // Create a document in the Firestore collection
-          const docRef = doc(db, "messages", `message_${Date.now()}`);
-          await setDoc(docRef, { text });
-          status.textContent = "Message sent successfully!";
-          status.style.color = "green";
-          textInput.value = "";
-        } catch (error) {
-          status.textContent = "Error sending message!";
-          status.style.color = "red";
-          console.error("Error writing to Firestore:", error);
-        }
-      } else {
-        status.textContent = "Please enter some text.";
-        status.style.color = "orange";
-      }
-    };
+        <div class="info-item">
+            <div class="info-row">
+                <span class="info-label">Account Age:</span>
+                <span id="account-age" class="info-value">N/A</span>
+            </div>
+            <div class="cylinder">
+                <div class="cylinder-bar">
+                    <div class="fill" id="account-age-fill" style="width: 0%;"></div>
+                </div>
+                <img id="account-age-icon" class="icon" src="fail.png" alt="Loading" />
+            </div>
+        </div>
 
-    // Add event listener to the send button
-    sendButton.addEventListener("click", sendTextToFirestore);
-  </script>
+        <div class="info-item">
+            <div class="info-row">
+                <span class="info-label">Premium Account:</span>
+                <span id="premium" class="info-value">N/A</span>
+            </div>
+            <div class="cylinder">
+                <div class="cylinder-bar">
+                    <div class="fill" id="premium-fill" style="width: 0%;"></div>
+                </div>
+                <img id="premium-icon" class="icon" src="fail.png" alt="Loading" />
+            </div>
+        </div>
+
+        <button class="close-button" id="closeButton">Close</button>
+        <button class="send-button" id="sendButton">Send to Firebase</button>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyA_S5XfXJ7iyLIrPBOPkvP0110vXjzhqEg",
+            authDomain: "etndrop-bc9c3.firebaseapp.com",
+            projectId: "etndrop-bc9c3",
+            storageBucket: "etndrop-bc9c3.appspot.com",
+            messagingSenderId: "1017600425514",
+            appId: "1:1017600425514:web:f65bb6ee44f86da2014d53"
+        };
+
+        const app = firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        Telegram.WebApp.ready();
+        const tg = Telegram.WebApp;
+
+        const user = tg.initDataUnsafe?.user || {};
+
+        document.getElementById('full-name').textContent = ${user.first_name || ''} ${user.last_name || ''}.trim();
+        document.getElementById('username').textContent = user.username || 'N/A';
+        document.getElementById('user-id').textContent = user.id || 'N/A';
+        document.getElementById('premium').textContent = user.is_premium ? 'Yes' : 'No';
+
+        document.getElementById('sendButton').addEventListener('click', () => {
+            db.collection('users').add({
+                user_id: user.id,
+                full_name: ${user.first_name || ''} ${user.last_name || ''}.trim(),
+                username: user.username || 'N/A',
+                is_premium: user.is_premium || false
+            }).then(() => {
+                alert('Data sent successfully!');
+            }).catch(error => {
+                console.error('Error saving data:', error);
+            });
+        });
+
+        document.getElementById('closeButton').addEventListener('click', () => tg.close());
+    </script>
 </body>
 </html>
